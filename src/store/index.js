@@ -5,14 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    myToken:''
+    myToken:'',
+    menuData:[]
   },
   getters: {
     
   },
   mutations: {
     initToken(state,val){
-      state.myToken = val
+      state.myToken = val.token
+      console.log(state.myToken);
+    },
+    initmenuData(state,val){
+      state.menuData = val
     }
   },
   actions: {

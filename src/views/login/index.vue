@@ -26,7 +26,7 @@ export default {
     return {
       ruleForm: {
         username: "admin",
-        password: "12345"
+        password: "123456"
       },
       rules: {
         username: [
@@ -57,9 +57,13 @@ export default {
       this.$refs["ruleForm"].validate((valid) => {
         if(valid){
           this.$axios.post('http://www.ysqorz.top:8888/api/private/v1/login',this.ruleForm).then(res =>{
-            console.log(res);
+            console.log(res.data.data);
             this.$store.commit('initToken',res.data.data)
-            this.$router.push({path:'/'})
+            this.$axios.get('http://www.ysqorz.top:8888/api/private/v1/menus',res.data.data).then(res =>{
+              console.log(res.data.data);
+              this.$store.commit('initmenuData',res.data.data)
+            })
+            this.$router.push({path:'/home'})
           })
         }
       //   if (!valid) return false
@@ -74,7 +78,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 html {
   background-color: #2b4b6b;
 }
@@ -101,3 +105,4 @@ html {
   }
 }
 </style>
+
